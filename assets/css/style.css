@@ -27,11 +27,59 @@ button{
 .center {
     text-align: center;
 }
+.rules{
+    font-size: 20px;
+    border:2px solid black;
+    margin: 0 auto;
+    width:50%;
+    box-shadow: 10px 10px 10px;
+    padding: 10px;
+}
 
+.button-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
 .answer-box{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap:10px;
+}
+.box{
+    width:25%;
+    height: 50px;
+    font-size: larger;
+    text-align: center;
+}
+.list{
+    display: flex;
+ 
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    font-size: large;
+    font-weight: bold;
+
+}
+
+.initial-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;;
+}
+.border{
+    border: 2px solid black;
+    width:30%;
+    margin:0 auto;
+    background-color: aliceblue;
+    padding: 20px;
+
 }

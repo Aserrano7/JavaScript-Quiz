@@ -59,7 +59,9 @@ var questionTitle = document.getElementById('title');
 var answBtn = document.getElementById('answer-buttons');
 var checkAnswer = document.getElementById('checkAnswer');
 var nextBtn = document.getElementById('next-button');
-
+var highscoreList = JSON.parse(localStorage.getItem("highscoreList")) || [];
+var initialUser = document.getElementById('initials-box');
+var highscore = document.getElementById('highscores-box');
 document.getElementById('start-button').addEventListener('click', startGame);
 nextBtn.addEventListener('click', () => {
     questionIndex++;
@@ -142,3 +144,35 @@ function displayScore() {
     var playersScore = document.getElementById('players-score');
     playersScore.textContent = 'Your Score is ' + timeLeft;
 }
+
+
+function displayHighscore(initialUser) {
+    highscore.classList.remove('hide');
+    document.getElementById('score-box').classList.add('hide');
+    strBox.classList.add('hide');
+    questionBox.classList.add('hide');
+    var scorelist = {
+        initial: initialUser,
+        score: timeLeft
+    }
+    highscoreList.push(scorelist);
+
+    var highscoreChart = document.getElementById('highscore');
+    highscoreChart.innerHTML = "";
+    var count = 1;
+    for (let index = 0; index < highscoreList.length; index++) {
+        var container1 = document.createElement('div');
+        container1.setAttribute('class', "border list");
+        container1.innerText = count + '. ' + highscoreList[index].initial + ' - ' + highscoreList[index].score;
+        container1.style.textTransform = "uppercase";
+        count++;
+        highscoreChart.appendChild(container1);
+    }
+    localStorage.setItem('highscoreList', JSON.stringify(highscoreList));
+};
+
+submit.addEventListener('click', function (event) {
+    event.preventDefault();
+    var initialUser = document.getElementById('initials-box').value;
+    displayHighscore(initialUser);
+});
