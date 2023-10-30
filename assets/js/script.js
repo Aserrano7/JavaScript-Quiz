@@ -45,3 +45,26 @@ var questions = [
         ]
     },
 ];
+
+
+
+var timerEl = document.getElementById("timer");
+var timeLeft = 75;
+var timeStr;
+var strBox = document.getElementById('start-box');
+var questionBox = document.getElementById('question-box');
+var allQuestions;
+var questionIndex;
+function startGame() {
+    timeStr = setInterval(timer, 1000);
+    strBox.classList.add('hide');
+    allQuestions = [].concat(questions);
+    questionIndex = 0;
+    questionBox.classList.remove('hide');
+    timer();
+    
+}
+function timer() {
+    timeLeft--;
+    timerEl.textContent = "Time: " + timeLeft;
+}
