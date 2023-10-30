@@ -60,13 +60,35 @@ var answBtn = document.getElementById('answer-buttons');
 var checkAnswer = document.getElementById('checkAnswer');
 var nextBtn = document.getElementById('next-button');
 var highscoreList = JSON.parse(localStorage.getItem("highscoreList")) || [];
+var submit = document.getElementById('submit-button');
+var scoreForm = document.getElementById('score-form');
 var initialUser = document.getElementById('initials-box');
 var highscore = document.getElementById('highscores-box');
+
 document.getElementById('start-button').addEventListener('click', startGame);
+
 nextBtn.addEventListener('click', () => {
     questionIndex++;
     nextQuestion();
 });
+
+document.getElementById('score-link').addEventListener('click', displayHighscore);
+
+submit.addEventListener('click', function (event) {
+    event.preventDefault();
+    var initialUser = document.getElementById('initials-box').value;
+    displayHighscore(initialUser);
+});
+document.getElementById('restart-quiz').addEventListener('click', function (event) {
+    location.reload();
+
+});
+
+document.getElementById('clear-button').addEventListener("click", function () {
+    localStorage.clear();
+    document.getElementById("highscore").innerHTML = "";
+});
+
 function startGame() {
     timeStr = setInterval(timer, 1000);
     strBox.classList.add('hide');
@@ -75,7 +97,7 @@ function startGame() {
     questionBox.classList.remove('hide');
     timer();
     nextQuestion();
-    
+
 }
 function timer() {
     timeLeft--;
@@ -117,7 +139,7 @@ function selectChoice(event) {
     checkAnswer.classList.remove("hide")
     if (correct) {
         checkAnswer.innerHTML = 'correct';
-        checkAnswer.style.color='green'
+        checkAnswer.style.color = 'green'
     } else {
         checkAnswer.innerHTML = 'wrong';
         checkAnswer.style.color = 'red';
@@ -151,12 +173,13 @@ function displayHighscore(initialUser) {
     document.getElementById('score-box').classList.add('hide');
     strBox.classList.add('hide');
     questionBox.classList.add('hide');
-    var scorelist = {
-        initial: initialUser,
-        score: timeLeft
+    if (typeof initialUser == "string") {
+        var scorelist = {
+            initial: initialUser,
+            score: timeLeft
+        }
     }
     highscoreList.push(scorelist);
-
     var highscoreChart = document.getElementById('highscore');
     highscoreChart.innerHTML = "";
     var count = 1;
@@ -171,8 +194,3 @@ function displayHighscore(initialUser) {
     localStorage.setItem('highscoreList', JSON.stringify(highscoreList));
 };
 
-submit.addEventListener('click', function (event) {
-    event.preventDefault();
-    var initialUser = document.getElementById('initials-box').value;
-    displayHighscore(initialUser);
-});
