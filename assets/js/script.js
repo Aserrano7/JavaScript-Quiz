@@ -78,6 +78,9 @@ function startGame() {
 function timer() {
     timeLeft--;
     timerEl.textContent = "Time: " + timeLeft;
+    if (timeLeft <= 0) {
+        displayScore();
+    }
 };
 function nextQuestion() {
     reset();
@@ -102,7 +105,40 @@ function displayQuestion(question) {
         }
         questionTitle.innerText = question.title;
         answBtn.appendChild(button);
-
+        button.addEventListener('click', selectChoice);
     });
 
 };
+function selectChoice(event) {
+    var selectedBtn = event.target;
+    var correct = selectedBtn.dataset.check;
+    checkAnswer.classList.remove("hide")
+    if (correct) {
+        checkAnswer.innerHTML = 'correct';
+        checkAnswer.style.color='green'
+    } else {
+        checkAnswer.innerHTML = 'wrong';
+        checkAnswer.style.color = 'red';
+        if (timeLeft <= 10) {
+            timeLeft = 0;
+        } else {
+            timeLeft -= 10;
+        }
+    }
+    if (allQuestions.length > questionIndex + 1) {
+        nextBtn.classList.remove("hide")
+        checkAnswer.classList.remove("hide")
+    } else {
+        displayScore();
+    }
+}
+
+function displayScore() {
+    clearInterval(timeStr);
+    timerEl.textContent = 'Time: ' + timeLeft;
+    questionBox.classList.add('hide');
+    var scoreBox = document.getElementById('score-box');
+    scoreBox.classList.remove('hide');
+    var playersScore = document.getElementById('players-score');
+    playersScore.textContent = 'Your Score is ' + timeLeft;
+}
