@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: blue;
+    color: aliceblue;
+    font-size: 25px;
+}
+h1{
+    text-align: center;
+    padding: 10px;
+    font-size: 40px;
+}
+.hide{
+    display: none;
+}
+button{
+    padding: 10px;
+    width:200px;
+}
